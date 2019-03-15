@@ -1,0 +1,15 @@
+extends template/main
+
+append vars
+  -
+    page_title= 'Главная'
+block content
+  .product
+    h1 Клевая футболка
+    p Цена:
+      strong(data-price='500') 500тг
+  button(data-j-id="9").add_product Добавить
+  button(data-j-id="8").add_product Добавить
+
+  h2 Товаров
+     strong.product_cnt 0
