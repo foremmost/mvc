@@ -2,3 +2,32 @@ $unit : 'px'
 .section
 	+w($mobile#{$unit})
 	margin: 0 auto
+.products
+	+dfs
+	padding: 1em 0
+.product
+	margin-right: 1em
+	border: 1px solid tomato
+	padding: 1em
+	h1
+		color: #6171ea
+	p
+		font-family: $f_bold
+		margin: 0.5em 0
+		color: #ea2817
+		strong
+			margin-left: 0.25em
+	button
+		+font(14px,$f_reg)
+		display: block
+		margin-top: 1em
+		padding: 0.5em
+		border: 1px solid #404040
+	&_info
+		font-size: 18px
+		padding: 0.25em
+		border: 1px solid #3b5998
+		display: inline-block
+	&_sum,&_cnt
+		+font(16px,$f_bold,tomato)
+		margin: 0 0.4em

@@ -21,7 +21,7 @@ class CartStorageModel{
 		let j_raw_cart = localStorage.getItem('j-cart');
 		if(!j_raw_cart) {
 			localStorage.setItem('j-cart',JSON.stringify([..._.goods]));
-		};
+		}
 		localStorage.removeItem('j-cart');
 		localStorage.setItem('j-cart',JSON.stringify([..._.goods]));
 	}
@@ -81,6 +81,7 @@ class CartModelObserver{
 const UpdateCntObs = new CartModelObserver();
 
 class CartModelF{
+	// Фасад
 	constructor(){
 		const _ = this;
 		_.CartStorage = new CartStorageModel();
@@ -92,7 +93,7 @@ class CartModelF{
 	}
 	update_cnt(){
 		const _ = this;
-		UpdateCntObs.sending(	_.CartStorage.get_sum());
+		UpdateCntObs.sending(_.CartStorage.get_sum());
 	}
 	init(){
 		const _ = this;
@@ -123,7 +124,7 @@ class CartController{
 	init(){
 		const _ = this;
 		let add_product = document.querySelectorAll('.add_product');
-		add_product.forEach(   (product) =>{
+		add_product.forEach( (product) => {
 			product.onclick = function ( e ) {
 				e.preventDefault();
 				let id = this.getAttribute('data-j-id') * 1;
@@ -144,6 +145,6 @@ class _Cart{
 
 window.onload = function (  ) {
 	const Cart = new _Cart();
-	console.log(Cart)
+	console.log('s')
 }
 
