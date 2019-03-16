@@ -56,7 +56,8 @@ const
         file_name: 'main.js',
         src_all : [
             'I:/gulp/libs/js/*.js',
-            'js/*.js'
+            'js/**/*.js',
+
         ],
         dest: project_path+'/js'
     },
@@ -154,6 +155,9 @@ gulp.task('min_css',function () {
 });
 gulp.task('js',function() {
     return gulp.src(js['src_all'])
+         .pipe(
+             flatten({ includeParents: 3 })
+         )
         .pipe(
             gulp.dest(js['dest'])
         );
