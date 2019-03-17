@@ -3,13 +3,13 @@ import { ProductModelF } from "../../J_Product/model/J_ProductModelF.js"
 export class CartStorageModel{
 	constructor(){
 		const _ = this;
-		_.sum = 0;
+		_.cnt = 0;
 		_.goods = new Map();
 		_.product = new ProductModelF();
 
 	}
-	get_sum(){
-		return this.sum;
+	get_cnt(){
+		return this.cnt;
 	}
 	get_items_from_storage(){
 		const _ = this;
@@ -36,7 +36,7 @@ export class CartStorageModel{
 		}
 		_.inc_product_cnt(id,'+',cnt);
 		_.add_to_storage();
-		_.update_sum();
+		_.update_cnt();
 	}
 	inc_product_cnt(id,type='+',cnt=1){
 		const _ = this;
@@ -50,11 +50,11 @@ export class CartStorageModel{
 			_.goods.set(id,count);
 		}
 	}
-	update_sum(){
+	update_cnt(){
 		const _ = this;
-		_.sum = 0;
+		_.cnt = 0;
 		_.goods.forEach( (cnt) =>{
-			_.sum+=cnt;
+			_.cnt+=cnt;
 		});
 	}
 	async init(){
@@ -63,7 +63,7 @@ export class CartStorageModel{
 		if(storage_items){
 			_.goods = storage_items;
 		}
-		_.update_sum();
+		_.update_cnt();
 
 		console.log(await _.product.get_products())
 	}

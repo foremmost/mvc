@@ -16,7 +16,7 @@ export class CartModelF {
 
 	update_cnt() {
 		const _ = this;
-		_.obs.sending( _.CartStorage.get_sum() );
+		_.obs.sending( _.CartStorage.get_cnt() );
 	}
 
 	init() {
