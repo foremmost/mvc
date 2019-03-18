@@ -3,13 +3,17 @@ import { ProductModelF } from "../../J_Product/model/J_ProductModelF.js"
 export class CartStorageModel{
 	constructor(){
 		const _ = this;
+		_.sum = 0;
 		_.cnt = 0;
 		_.goods = new Map();
 		_.product = new ProductModelF();
-
+		_.init();
 	}
 	get_cnt(){
 		return this.cnt;
+	}
+	get_sum(){
+		return this.sum;
 	}
 	get_items_from_storage(){
 		const _ = this;
@@ -59,12 +63,13 @@ export class CartStorageModel{
 	}
 	async init(){
 		const _ = this;
-		let storage_items = _.get_items_from_storage();
-		if(storage_items){
-			_.goods = storage_items;
-		}
-		_.update_cnt();
+		( async	() =>{
+			let storage_items = _.get_items_from_storage();
+			if(storage_items){
+				_.goods = storage_items;
+			}
+			_.update_cnt();
+		} )()
 
-		console.log(await _.product.get_products())
 	}
 }
