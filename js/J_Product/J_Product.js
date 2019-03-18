@@ -7,8 +7,8 @@ export class J_Product{
 		_.view = new J_ProductView(new ProductFacade());
 		
 	}
-	init(){
+	async init(){
 		const _ = this;
-		_.view.init();
+		await _.view.init();
 	}
 }
