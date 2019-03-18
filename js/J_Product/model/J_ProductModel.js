@@ -1,6 +1,7 @@
 export class ProductModel{
 	constructor() {
 		const _ = this;
+		_.init();
 	}
 	async fetch(method,path,send){
 		return new Promise( function (resolve,reject) {
@@ -29,14 +30,16 @@ export class ProductModel{
 			}
 		});
 	}
-	async get_products(id){
+	async get_products(){
 		return await this.fetch('GET',"js/products.json",null);
-		/*await fetch("js/products.json").then(async function ( response ) {
-			console.log(response.json())
-			return await response.json();
-		})*/
 	}
 	async get_product(id){
 
+	}
+	init(){
+		const _ = this;
+		( async () => {
+			_.goods = await _.get_products();
+		})()
 	}
 }

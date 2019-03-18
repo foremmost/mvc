@@ -5,8 +5,8 @@ import {CartController } from './controller/J_CartController.js'
 
 window.addEventListener('load',function (  ) {
 	let UpdateCntObs = new CartModelObserver();
-	let facade = new CartModelF(UpdateCntObs).init();
-	new CartView(UpdateCntObs).init();
-	new CartController(facade).init();
+	new CartView(UpdateCntObs);
+	let facade = new CartModelF(UpdateCntObs);
+	new CartController(facade);
 })
 

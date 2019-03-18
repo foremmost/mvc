@@ -6,23 +6,22 @@ export class CartModelF {
 		const _ = this;
 		_.obs =obs;
 		_.CartStorage = new CartStorageModel();
+		_.init();
 	}
-
 	add_product( id, cnt ) {
 		const _ = this;
 		_.CartStorage.add_product( id, cnt );
 		_.update_cnt();
 	}
-
 	update_cnt() {
 		const _ = this;
-		_.obs.sending( _.CartStorage.get_sum() );
+		_.obs.sending( _.CartStorage.get_cnt() );
 	}
-
 	init() {
 		const _ = this;
-		_.CartStorage.init();
-		_.update_cnt();
-		return _;
+		( ()=>{
+		//	_.CartStorage.init();
+			_.update_cnt();
+		})()
 	}
 }

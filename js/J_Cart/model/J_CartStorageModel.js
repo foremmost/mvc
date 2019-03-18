@@ -4,9 +4,13 @@ export class CartStorageModel{
 	constructor(){
 		const _ = this;
 		_.sum = 0;
+		_.cnt = 0;
 		_.goods = new Map();
 		_.product = new ProductModelF();
-
+		_.init();
+	}
+	get_cnt(){
+		return this.cnt;
 	}
 	get_sum(){
 		return this.sum;
@@ -36,7 +40,7 @@ export class CartStorageModel{
 		}
 		_.inc_product_cnt(id,'+',cnt);
 		_.add_to_storage();
-		_.update_sum();
+		_.update_cnt();
 	}
 	inc_product_cnt(id,type='+',cnt=1){
 		const _ = this;
@@ -50,21 +54,22 @@ export class CartStorageModel{
 			_.goods.set(id,count);
 		}
 	}
-	update_sum(){
+	update_cnt(){
 		const _ = this;
-		_.sum = 0;
+		_.cnt = 0;
 		_.goods.forEach( (cnt) =>{
-			_.sum+=cnt;
+			_.cnt+=cnt;
 		});
 	}
 	async init(){
 		const _ = this;
-		let storage_items = _.get_items_from_storage();
-		if(storage_items){
-			_.goods = storage_items;
-		}
-		_.update_sum();
+		( async	() =>{
+			let storage_items = _.get_items_from_storage();
+			if(storage_items){
+				_.goods = storage_items;
+			}
+			_.update_cnt();
+		} )()
 
-		console.log(await _.product.get_products())
 	}
 }

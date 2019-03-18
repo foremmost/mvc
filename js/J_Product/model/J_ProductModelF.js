@@ -5,8 +5,8 @@ export class ProductModelF{
 		const _ = this;
 		_.ProductModel = new ProductModel();
 	}
-async get_products(){
+get_products(){
 		const _ = this;
-		return await 	_.ProductModel.get_products();
+		return  	_.ProductModel.get_products();
 }
 }
