@@ -1,23 +1,19 @@
 //import { _Product } from "../../J_Product/J_Product";
 
 export class CartController{
-	constructor(model){
+	constructor(config){
 		const _ = this;
-		_.model = model;
-		_.init();
+		_.config = config;
+		_.model = config.model;
 	}
 	init(){
 		const _ = this;
-		(  ()=>{
-			let add_product = document.querySelectorAll('.add_product');
-			add_product.forEach( (product) => {
-				product.onclick = function ( e ) {
-					e.preventDefault();
-					let id = this.getAttribute('data-j-id') * 1;
-					_.model.add_product(id,1);
-				}
-			});
-		//	_.model.update_cnt();
-		} )();
+		_.config.add_to_cart_btn.forEach( (product) => {
+			product.onclick = function ( e ) {
+				e.preventDefault();
+				let id = this.getAttribute('data-j-id') * 1;
+				_.model.add_product(id,1);
+			}
+		});
 	}
 }

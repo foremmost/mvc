@@ -34,12 +34,17 @@ export class ProductModel{
 		return await this.fetch('GET',"js/products.json",null);
 	}
 	async get_product(id){
-
+		return await this.fetch('GET',"js/products.json",null);
+	}
+	async get_price(id){
+		const _ = this;
+		_.current_product = await _.get_product(id);
+		return _.current_product.price;
 	}
 	init(){
 		const _ = this;
 		( async () => {
-			_.goods = await _.get_products();
+		//	_.goods = await _.get_products();
 		})()
 	}
 }

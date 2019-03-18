@@ -2,26 +2,17 @@
 import { CartStorageModel } from "./J_CartStorageModel.js";
 export class CartModelF {
 	// Фасад
-	constructor(obs) {
+	constructor(cartObs) {
 		const _ = this;
-		_.obs =obs;
-		_.CartStorage = new CartStorageModel();
-		_.init();
+		_.CartStorage = new CartStorageModel(cartObs);
 	}
-	add_product( id, cnt ) {
+	async add_product( id, cnt ) {
 		const _ = this;
-		_.CartStorage.add_product( id, cnt );
-		_.update_cnt();
+		await _.CartStorage.add_product( id, cnt );
 	}
-	update_cnt() {
+
+	async init() {
 		const _ = this;
-		_.obs.sending( _.CartStorage.get_cnt() );
-	}
-	init() {
-		const _ = this;
-		( ()=>{
-		//	_.CartStorage.init();
-			_.update_cnt();
-		})()
+		await _.CartStorage.init();
 	}
 }

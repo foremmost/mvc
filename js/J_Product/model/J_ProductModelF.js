@@ -5,8 +5,12 @@ export class ProductModelF{
 		const _ = this;
 		_.ProductModel = new ProductModel();
 	}
-get_products(){
+	get_products(){
+			const _ = this;
+			_.goods = _.ProductModel.goods;
+	}
+	async get_price(id){
 		const _ = this;
-		return  	_.ProductModel.get_products();
-}
+		return await	_.ProductModel.get_price(id);
+	}
 }

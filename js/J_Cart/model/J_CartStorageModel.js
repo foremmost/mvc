@@ -1,13 +1,14 @@
 import { ProductModelF } from "../../J_Product/model/J_ProductModelF.js"
 
 export class CartStorageModel{
-	constructor(){
+	constructor(cartObs){
 		const _ = this;
+		_.cntobs =cartObs.get('cnt');
+		_.sumobs =cartObs.get('sum');
 		_.sum = 0;
 		_.cnt = 0;
 		_.goods = new Map();
 		_.product = new ProductModelF();
-		_.init();
 	}
 	get_cnt(){
 		return this.cnt;
@@ -33,7 +34,7 @@ export class CartStorageModel{
 		localStorage.removeItem('j-cart');
 		localStorage.setItem('j-cart',JSON.stringify([..._.goods]));
 	}
-	add_product(id,cnt){
+	async add_product(id,cnt){
 		const _ = this;
 		if(!_.goods.has(id)){
 			_.goods.set(id,0);
@@ -41,6 +42,7 @@ export class CartStorageModel{
 		_.inc_product_cnt(id,'+',cnt);
 		_.add_to_storage();
 		_.update_cnt();
+		await _.update_sum();
 	}
 	inc_product_cnt(id,type='+',cnt=1){
 		const _ = this;
@@ -60,16 +62,28 @@ export class CartStorageModel{
 		_.goods.forEach( (cnt) =>{
 			_.cnt+=cnt;
 		});
+		_.cntobs.sending( _.get_cnt() );
+	}
+	async update_sum(){
+		const _ = this;
+		_.sum = 0;
+		let goods = [..._.goods.keys()],
+			vals = [..._.goods.values()];
+		for(let i=0;i < goods.length;i++){
+			let id = goods[i],
+					amount = vals[i],
+				price = await _.product.get_price(id);
+			_.sum+= (price * amount);
+		}
+		_.sumobs.sending( _.get_sum() );
 	}
 	async init(){
 		const _ = this;
-		( async	() =>{
 			let storage_items = _.get_items_from_storage();
 			if(storage_items){
 				_.goods = storage_items;
 			}
 			_.update_cnt();
-		} )()
-
+			await _.update_sum();
 	}
 }
